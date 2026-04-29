@@ -1,0 +1,10 @@
+requests==2.31.0
+beautifulsoup4==4.12.3
+selenium==4.18.1
+webdriver-manager==4.0.1
+python-dotenv==1.0.1
+anthropic==0.26.0
+PyPDF2==3.0.1
+reportlab==4.1.0
+schedule==1.2.1
+rich==13.7.1

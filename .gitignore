@@ -1,0 +1,28 @@
+# Secrets — never commit
+.env
+
+# Embedded repo — not tracked
+EasyApplyJobsBot/
+
+# Runtime data
+applied.json
+linkedin_applied.json
+matches.json
+manual_queue.json
+
+# Resume PDF (personal)
+*.pdf
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.Python
+
+# OS
+.DS_Store
+Thumbs.db
