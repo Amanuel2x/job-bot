@@ -107,6 +107,6 @@ PROFILE = {
             "cloud",
         ],
         "location": "Remote",  # or "New York, NY" etc — "Remote" matches remote-friendly listings
-        "min_internship_length_weeks": 8,
+        "min_job_length_weeks": 8,
     },
 }

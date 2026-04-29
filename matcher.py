@@ -152,7 +152,7 @@ def score_job(job: dict) -> tuple[int, list[str]]:
             reasons.append(f"SWE role: '{job.get('title', '')[:40]}'")
         elif source in ("SimplifyJobs", "NewGrad"):
             score += 10
-            reasons.append("Tech internship listing")
+            reasons.append("Tech job listing")
 
     # Skill match (up to 40 pts)
     matched_skills = [s for s in ALL_SKILLS if s in text]

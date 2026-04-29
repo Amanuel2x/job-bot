@@ -1,5 +1,5 @@
 """
-LinkedIn Easy Apply bot — searches for CS/CE internships and auto-applies.
+LinkedIn Easy Apply bot — searches for CS/CE jobs and auto-applies.
 Uses your existing Chrome profile (you must be logged into LinkedIn).
 Close Chrome before running this.
 """
@@ -62,7 +62,7 @@ PROFILE = {
 
 APPLIED_LOG = Path(__file__).parent / "linkedin_applied.json"
 
-# Search config — CS/CE internships, Summer 2026, Easy Apply only
+# Search config — CS/CE jobs, Summer 2026, Easy Apply only
 SEARCH_QUERIES = [
     "software engineer intern",
     "software engineering intern",
@@ -78,7 +78,7 @@ SEARCH_QUERIES = [
 # LinkedIn search URL params
 SEARCH_PARAMS = {
     "f_AL": "true",      # Easy Apply only
-    "f_E": "1",          # Experience: Internship
+    "f_E": "1",          # Experience: Job
     "f_TPR": "r2592000", # Posted in last month
     "sortBy": "DD",      # Newest first
 }
@@ -603,7 +603,7 @@ def run_linkedin_apply(limit: int = MAX_APPLICATIONS):
                     f"&location={loc_name.replace(' ', '+')}"
                     f"&geoId={geo_id}"
                     f"&f_AL=true"  # Easy Apply
-                    f"&f_E=1"     # Internship
+                    f"&f_E=1"     # Job
                     f"&f_TPR=r2592000"  # Last month
                     f"&sortBy=DD"  # Newest first
                 )

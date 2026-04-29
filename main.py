@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Internship Bot
+Job Bot
 
 Usage:
   python main.py                   # Full run: scrape → match → apply → email digest
@@ -41,7 +41,7 @@ def load_env() -> dict:
 
 
 def print_matches_table(jobs: list[dict]):
-    table = Table(title=f"Matched Internships ({len(jobs)} total)", show_lines=False)
+    table = Table(title=f"Matched Jobs ({len(jobs)} total)", show_lines=False)
     table.add_column("#", style="dim", width=4)
     table.add_column("Score", style="green", width=6)
     table.add_column("Company", style="bold", width=22)
@@ -84,7 +84,7 @@ def print_report():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Internship Bot")
+    parser = argparse.ArgumentParser(description="Job Bot")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--scrape-only", action="store_true")
     parser.add_argument("--apply-only", action="store_true")
@@ -121,7 +121,7 @@ def main():
         return
 
     # Full run
-    console.print("[bold cyan]Internship Bot Starting[/bold cyan]\n")
+    console.print("[bold cyan]Job Bot Starting[/bold cyan]\n")
     from scraper import scrape_all
     from scraper_platforms import scrape_platforms
     jobs = scrape_all()

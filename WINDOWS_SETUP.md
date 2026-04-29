@@ -1,4 +1,4 @@
-# Running the Internship Bot on Windows
+# Running the Job Bot on Windows
 
 ## One-time setup
 
@@ -6,7 +6,7 @@
 Download from python.org — make sure to check "Add Python to PATH" during install.
 
 **2. Copy the folder to your PC**
-Transfer the entire `internship-bot` folder to your Windows machine.
+Transfer the entire `job-bot` folder to your Windows machine.
 Easiest options: USB drive, AirDrop to iCloud then download, or zip and email it to yourself.
 
 **3. Open Command Prompt in the folder**
@@ -39,7 +39,7 @@ Drop your resume PDF into the folder and name it `resume.pdf`.
 1. Go to myaccount.google.com
 2. Security → 2-Step Verification (turn it on if not already)
 3. Search "App Passwords" at the top
-4. Name it "Internship Bot" → Generate
+4. Name it "Job Bot" → Generate
 5. Copy the 16-character password into your .env file
 
 ---
@@ -56,12 +56,12 @@ This scrapes, matches, opens applications, and emails you a digest. Takes 5-10 m
 **Option B — Schedule it to run automatically every night**
 Open Task Scheduler (search it in Start menu):
 1. Create Basic Task
-2. Name: "Internship Bot"
+2. Name: "Job Bot"
 3. Trigger: Daily, set a time (e.g. 11:00 PM)
 4. Action: Start a program
-5. Program: `C:\path\to\internship-bot\venv\Scripts\python.exe`
+5. Program: `C:\path\to\job-bot\venv\Scripts\python.exe`
 6. Arguments: `main.py`
-7. Start in: `C:\path\to\internship-bot`
+7. Start in: `C:\path\to\job-bot`
 
 Now it runs every night while you sleep and emails you what it did.
 

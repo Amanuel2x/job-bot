@@ -96,7 +96,7 @@ def build_email_html(applications: list[dict], cover_letters: dict) -> str:
       <div style='max-width:700px;margin:32px auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);'>
 
         <div style='background:#4f46e5;padding:28px 32px;'>
-          <h1 style='color:#ffffff;margin:0;font-size:22px;'>Internship Bot Daily Report</h1>
+          <h1 style='color:#ffffff;margin:0;font-size:22px;'>Job Bot Daily Report</h1>
           <p style='color:#c7d2fe;margin:6px 0 0;font-size:14px;'>{date_str}</p>
         </div>
 
@@ -136,7 +136,7 @@ def build_email_html(applications: list[dict], cover_letters: dict) -> str:
         </div>
 
         <div style='padding:16px 32px;background:#f8faff;border-top:1px solid #e5e7eb;text-align:center;'>
-          <p style='color:#9ca3af;font-size:12px;margin:0;'>Internship Bot — running on your PC overnight</p>
+          <p style='color:#9ca3af;font-size:12px;margin:0;'>Job Bot — running on your PC overnight</p>
         </div>
       </div>
     </body>
@@ -157,7 +157,7 @@ def send_digest(gmail_user: str, gmail_app_password: str, to_email: str):
     html = build_email_html(applications, cover_letters)
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = f"Internship Bot — {len(applications)} applications sent today"
+    msg["Subject"] = f"Job Bot — {len(applications)} applications sent today"
     msg["From"] = gmail_user
     msg["To"] = to_email
     msg.attach(MIMEText(html, "html"))

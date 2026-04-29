@@ -53,7 +53,7 @@ def send_telegram(token: str, chat_id: str, message: str) -> bool:
 
 def build_telegram_digest(applications: list[dict]) -> str:
     if not applications:
-        return "Internship Bot ran but found no new applications in the last 24 hours."
+        return "Job Bot ran but found no new applications in the last 24 hours."
 
     total = len(applications)
     bay = sum(1 for a in applications if a.get("is_bay_area"))
@@ -62,7 +62,7 @@ def build_telegram_digest(applications: list[dict]) -> str:
     date_str = datetime.now().strftime("%b %d, %Y %I:%M %p")
 
     lines = [
-        f"<b>Internship Bot Report</b> — {date_str}",
+        f"<b>Job Bot Report</b> — {date_str}",
         f"",
         f"Applied: <b>{total}</b>  |  Bay Area: <b>{bay}</b>  |  Remote: <b>{remote}</b>  |  Housing: <b>{housing}</b>",
         f"",

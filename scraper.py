@@ -1,5 +1,5 @@
 """
-Job scraper — pulls internship listings from multiple sources.
+Job scraper — pulls job listings from multiple sources.
 Sources: SimplifyJobs GitHub, LinkedIn, Wellfound (AngelList), New Grad positions
 """
 
@@ -11,7 +11,7 @@ from matcher import HEADERS, is_entry_level
 
 console = Console()
 
-SIMPLIFY_URL = "https://raw.githubusercontent.com/SimplifyJobs/Summer2025-Internships/dev/.github/scripts/listings.json"
+SIMPLIFY_URL = "https://raw.githubusercontent.com/SimplifyJobs/Summer2025-Jobs/dev/.github/scripts/listings.json"
 OFFSEASON_URL = "https://raw.githubusercontent.com/SimplifyJobs/New-Grad-Positions/dev/.github/scripts/listings.json"
 LINKEDIN_BASE = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search"
 WELLFOUND_URL = "https://wellfound.com/jobs"
@@ -64,7 +64,7 @@ def fetch_new_grad_jobs() -> list[dict]:
     return _fetch_simplify_url(OFFSEASON_URL, "NewGrad", "New Grad positions")
 
 
-def fetch_linkedin_jobs(keywords: str = "software engineer internship", location: str = "San Francisco Bay Area", pages: int = 4) -> list[dict]:
+def fetch_linkedin_jobs(keywords: str = "software engineer job", location: str = "San Francisco Bay Area", pages: int = 4) -> list[dict]:
     console.print(f"[cyan]Fetching LinkedIn: '{keywords}' in '{location}'...[/cyan]")
     jobs = []
     for page in range(pages):
@@ -118,11 +118,11 @@ def fetch_linkedin_jobs(keywords: str = "software engineer internship", location
 
 
 def fetch_wellfound_jobs() -> list[dict]:
-    console.print("[cyan]Fetching Wellfound (startup internships)...[/cyan]")
+    console.print("[cyan]Fetching Wellfound (startup jobs)...[/cyan]")
     jobs = []
     for query in ["software engineer intern", "software developer intern", "backend intern", "full stack intern"]:
         try:
-            r = requests.get(WELLFOUND_URL, params={"q": query, "job_type": "internship", "remote": "true"}, headers=HEADERS, timeout=30)
+            r = requests.get(WELLFOUND_URL, params={"q": query, "job_type": "job", "remote": "true"}, headers=HEADERS, timeout=30)
             r.raise_for_status()
             soup = BeautifulSoup(r.text, "html.parser")
             for card in soup.select("div[class*='JobListing'], div[class*='job-listing'], div[data-test='JobListing']"):
@@ -173,13 +173,13 @@ def scrape_all() -> list[dict]:
     all_jobs.extend(fetch_new_grad_jobs())
 
     linkedin_searches = [
-        ("software engineer internship", "San Francisco Bay Area"),
+        ("software engineer job", "San Francisco Bay Area"),
         ("software developer intern", "San Francisco Bay Area"),
         ("backend engineer intern", "San Francisco Bay Area"),
         ("full stack intern", "San Francisco Bay Area"),
-        ("software engineer internship", "United States"),
-        ("Python developer internship", "United States"),
-        ("React developer internship", "United States"),
+        ("software engineer job", "United States"),
+        ("Python developer job", "United States"),
+        ("React developer job", "United States"),
     ]
     for kw, loc in linkedin_searches:
         all_jobs.extend(fetch_linkedin_jobs(keywords=kw, location=loc, pages=4))

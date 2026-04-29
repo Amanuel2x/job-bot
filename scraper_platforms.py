@@ -1,7 +1,7 @@
 """
 Platform-specific scrapers for big company recruiting sites.
 Targets Greenhouse, Lever, and Workday — the three platforms
-that cover the majority of tech internship postings.
+that cover the majority of tech job postings.
 """
 
 import requests
@@ -99,7 +99,7 @@ WORKDAY_PAYLOAD = {
 }
 
 INTERN_KEYWORDS = [
-    "intern", "internship", "co-op", "coop", "new grad", "university",
+    "intern", "job", "co-op", "coop", "new grad", "university",
     "student", "early career",
 ]
 

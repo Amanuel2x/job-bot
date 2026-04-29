@@ -208,7 +208,7 @@ You are filling out a job application for Amanuel Abu. Here is his info:
 - Available start date: June 2026
 - Willing to relocate: Yes
 - Open to remote: Yes
-- Years of experience: 1 (internships + projects)
+- Years of experience: 1 (jobs + projects)
 - How did you hear about us: Company website
 
 Rules:
@@ -1195,7 +1195,7 @@ def run_auto_apply(limit: int = APPLY_LIMIT):
             company_counts[c] = company_counts.get(c, 0) + 1
 
     def _is_intern_role(job):
-        """Only apply to internship roles."""
+        """Only apply to job roles."""
         title = job.get("title", "").lower()
         return "intern" in title
 
@@ -1211,7 +1211,7 @@ def run_auto_apply(limit: int = APPLY_LIMIT):
     print(f"\nEligible for auto-apply: {len(eligible)} (Greenhouse + Lever, max {MAX_PER_COMPANY}/company)")
     print(f"Limit: {limit}\n")
 
-    _telegram(f"Internship bot starting. {len(eligible)} eligible applications queued.")
+    _telegram(f"Job bot starting. {len(eligible)} eligible applications queued.")
 
     driver = _make_driver()
     counts = {"applied": 0, "failed": 0, "skipped": 0}

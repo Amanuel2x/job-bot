@@ -44,7 +44,7 @@ def generate_cover_letter(job: dict, api_key: str | None = None) -> str:
 def _ai_cover_letter(job: dict, project_bullets: str, api_key: str) -> str:
     client = anthropic.Anthropic(api_key=api_key)
 
-    prompt = f"""Write a cover letter for a software engineering internship. Follow these rules strictly:
+    prompt = f"""Write a cover letter for a software engineering job. Follow these rules strictly:
 
 - Do not use em-dashes or colons
 - Do not overuse adjectives or adverbs — cut them unless they add real information
@@ -83,7 +83,7 @@ def _template_cover_letter(job: dict, projects: list[dict]) -> str:
 
     body = f"""Hi {company} team,
 
-I'm a software engineering student applying for the {title} role. I build real products — full-stack SaaS platforms, native macOS apps, and Python automation systems — and I'm looking for an internship where I can contribute immediately.
+I'm a software engineering student applying for the {title} role. I build real products — full-stack SaaS platforms, native macOS apps, and Python automation systems — and I'm looking for an job where I can contribute immediately.
 
 """
     if p1:

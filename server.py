@@ -147,7 +147,7 @@ def render_dashboard() -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Internship Bot</title>
+<title>Job Bot</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f13; color: #e2e8f0; min-height: 100vh; }
@@ -199,7 +199,7 @@ def render_dashboard() -> str:
 <body>
 
 <div class="header">
-  <h1>Internship Bot</h1>
+  <h1>Job Bot</h1>
   <div class="status">
     <div class="dot" id="statusDot"></div>
     <span id="statusText">Idle</span>
@@ -231,7 +231,7 @@ def render_dashboard() -> str:
   </div>
 
   <div class="section">
-    <div class="section-header"><h2>Matched Internships</h2></div>
+    <div class="section-header"><h2>Matched Jobs</h2></div>
     <div class="table-wrap">
       <table id="matchesTable">
         <thead><tr><th>#</th><th>Score</th><th>Company</th><th>Title</th><th>Location</th><th>Type</th><th>Link</th></tr></thead>
@@ -376,7 +376,7 @@ startPolling();
 if __name__ == "__main__":
     port = 8765
     server = HTTPServer(("localhost", port), Handler)
-    print(f"\n  Internship Bot running at http://localhost:{port}")
+    print(f"\n  Job Bot running at http://localhost:{port}")
     print("  Open that URL in your browser. Keep this window open.\n")
     try:
         server.serve_forever()
