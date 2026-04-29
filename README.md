@@ -1,12 +1,12 @@
-# Internship Bot
+# Job Bot
 
-Finds software engineering internships you're qualified for and mass-applies.
+Finds software engineering jobs you're qualified for and mass-applies.
 Completely standalone — no dependencies on Vera or any other project.
 
 ## Setup (one time)
 
 ```bash
-cd ~/internship-bot
+cd ~/job-bot
 
 # 1. Create virtual environment
 python3 -m venv venv
@@ -53,7 +53,7 @@ python main.py --report
 ## How it works
 
 1. **Scraper** (`scraper.py`) — pulls from:
-   - SimplifyJobs GitHub repo (4,500+ community-maintained internship listings, most accurate)
+   - SimplifyJobs GitHub repo (4,500+ community-maintained job listings, most accurate)
    - LinkedIn public job search (no login required)
    - Indeed (currently blocked by 403, but included for future use)
 
