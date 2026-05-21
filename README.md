@@ -1,7 +1,7 @@
 # Job Bot
 
 Finds software engineering jobs you're qualified for and mass-applies.
-Completely standalone — no dependencies on Vera or any other project.
+Completely standalone — 
 
 ## Setup (one time)
 
