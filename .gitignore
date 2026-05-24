@@ -1,9 +1,6 @@
 # Secrets — never commit
 .env
 
-# Embedded repo — not tracked
-EasyApplyJobsBot/
-
 # Runtime data
 applied.json
 linkedin_applied.json

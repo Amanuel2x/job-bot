@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Easy Apply Bot</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>LinkedIn Easy Apply Bot</h1>
+      <div id="statusBadge" class="badge badge-stopped">Stopped</div>
+    </header>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button id="btnStart" class="btn btn-primary">Start</button>
+      <button id="btnPause" class="btn btn-warning" disabled>Pause</button>
+      <button id="btnStop" class="btn btn-danger" disabled>Stop</button>
+    </div>
+
+    <!-- Live Stats -->
+    <div id="statsPanel" class="stats-panel">
+      <div class="stat"><span class="stat-label">Jobs Processed</span><span id="statJobs" class="stat-value">0</span></div>
+      <div class="stat"><span class="stat-label">Applied</span><span id="statApplied" class="stat-value green">0</span></div>
+      <div class="stat"><span class="stat-label">Blacklisted</span><span id="statBlacklisted" class="stat-value red">0</span></div>
+      <div class="stat"><span class="stat-label">Already Applied</span><span id="statAlready" class="stat-value">0</span></div>
+      <div class="stat"><span class="stat-label">Cannot Apply</span><span id="statCannot" class="stat-value">0</span></div>
+      <div class="stat"><span class="stat-label">Skipped</span><span id="statSkipped" class="stat-value">0</span></div>
+      <div class="stat"><span class="stat-label">Duration</span><span id="statDuration" class="stat-value">0m</span></div>
+    </div>
+
+    <!-- Tabs -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="search">Search</button>
+      <button class="tab" data-tab="filters">Filters</button>
+      <button class="tab" data-tab="form">Form Fill</button>
+      <button class="tab" data-tab="advanced">Advanced</button>
+      <button class="tab" data-tab="results">Results</button>
+    </nav>
+
+    <!-- Tab: Search Settings -->
+    <section id="tab-search" class="tab-content active">
+      <div class="field">
+        <label for="keywords">Keywords <small>(comma-separated)</small></label>
+        <input type="text" id="keywords" placeholder="frontend, react, python">
+      </div>
+      <div class="field">
+        <label for="location">Locations <small>(comma-separated)</small></label>
+        <input type="text" id="location" placeholder="NorthAmerica, Europe">
+      </div>
+      <div class="field">
+        <label>Experience Level</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="experienceLevel" value="Internship"> Internship</label>
+          <label><input type="checkbox" name="experienceLevel" value="Entry level"> Entry Level</label>
+          <label><input type="checkbox" name="experienceLevel" value="Associate"> Associate</label>
+          <label><input type="checkbox" name="experienceLevel" value="Mid-Senior level"> Mid-Senior</label>
+          <label><input type="checkbox" name="experienceLevel" value="Director"> Director</label>
+          <label><input type="checkbox" name="experienceLevel" value="Executive"> Executive</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Date Posted</label>
+        <select id="datePosted">
+          <option value="Any Time">Any Time</option>
+          <option value="Past Month">Past Month</option>
+          <option value="Past Week">Past Week</option>
+          <option value="Past 24 hours">Past 24 hours</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Job Type</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="jobType" value="Full-time"> Full-time</label>
+          <label><input type="checkbox" name="jobType" value="Part-time"> Part-time</label>
+          <label><input type="checkbox" name="jobType" value="Contract"> Contract</label>
+          <label><input type="checkbox" name="jobType" value="Temporary"> Temporary</label>
+          <label><input type="checkbox" name="jobType" value="Volunteer"> Volunteer</label>
+          <label><input type="checkbox" name="jobType" value="Intership"> Internship</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Work Location</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="remote" value="On-site"> On-site</label>
+          <label><input type="checkbox" name="remote" value="Remote"> Remote</label>
+          <label><input type="checkbox" name="remote" value="Hybrid"> Hybrid</label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="salary">Salary</label>
+        <select id="salary">
+          <option value="">Any</option>
+          <option value="$40,000+">$40,000+</option>
+          <option value="$60,000+">$60,000+</option>
+          <option value="$80,000+">$80,000+</option>
+          <option value="$100,000+">$100,000+</option>
+          <option value="$120,000+">$120,000+</option>
+          <option value="$140,000+">$140,000+</option>
+          <option value="$160,000+">$160,000+</option>
+          <option value="$180,000+">$180,000+</option>
+          <option value="$200,000+">$200,000+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Sort By</label>
+        <select id="sort">
+          <option value="Recent">Most Recent</option>
+          <option value="Relevent">Most Relevant</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Tab: Filters -->
+    <section id="tab-filters" class="tab-content">
+      <div class="field">
+        <label for="blacklistCompanies">Blacklist Companies <small>(comma-separated)</small></label>
+        <input type="text" id="blacklistCompanies" placeholder="Apple, Google">
+      </div>
+      <div class="field">
+        <label for="blackListTitles">Blacklist Title Keywords <small>(comma-separated)</small></label>
+        <input type="text" id="blackListTitles" placeholder="manager, .Net">
+      </div>
+      <div class="field">
+        <label for="onlyApplyCompanies">Only Apply Companies <small>(comma-separated, leave empty for all)</small></label>
+        <input type="text" id="onlyApplyCompanies" placeholder="">
+      </div>
+      <div class="field">
+        <label for="onlyApplyTitles">Only Apply Title Keywords <small>(comma-separated, leave empty for all)</small></label>
+        <input type="text" id="onlyApplyTitles" placeholder="">
+      </div>
+      <div class="field">
+        <label for="blockHiringMember">Block Hiring Managers <small>(comma-separated)</small></label>
+        <input type="text" id="blockHiringMember" placeholder="">
+      </div>
+      <div class="field">
+        <label for="onlyApplyHiringMember">Only Apply Hiring Managers <small>(comma-separated, leave empty for all)</small></label>
+        <input type="text" id="onlyApplyHiringMember" placeholder="">
+      </div>
+      <div class="field">
+        <label for="onlyApplyMaxApplications">Max Applicants (skip jobs with more)</label>
+        <input type="number" id="onlyApplyMaxApplications" placeholder="0 = no limit" min="0">
+      </div>
+      <div class="field">
+        <label for="onlyApplyMinApplications">Min Applicants (skip jobs with fewer)</label>
+        <input type="number" id="onlyApplyMinApplications" placeholder="0 = no limit" min="0">
+      </div>
+      <div class="field">
+        <label for="onlyApplyJobDescription">Required Description Keywords <small>(comma-separated)</small></label>
+        <input type="text" id="onlyApplyJobDescription" placeholder="">
+      </div>
+      <div class="field">
+        <label for="blockJobDescription">Blocked Description Keywords <small>(comma-separated)</small></label>
+        <input type="text" id="blockJobDescription" placeholder="">
+      </div>
+    </section>
+
+    <!-- Tab: Form Fill -->
+    <section id="tab-form" class="tab-content">
+      <div class="field">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" id="phoneNumber" placeholder="1234567890">
+      </div>
+      <div class="field">
+        <label for="preferredCv">Preferred CV (1 = first, 2 = second, etc.)</label>
+        <input type="number" id="preferredCv" value="1" min="1" max="10">
+      </div>
+      <div class="field">
+        <label for="defaultRadioOption">Default Radio Button Answer</label>
+        <select id="defaultRadioOption">
+          <option value="0">Skip (don't auto-answer)</option>
+          <option value="1">First option (usually Yes)</option>
+          <option value="2">Second option (usually No)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="answerAllCheckboxes">Auto-answer Checkboxes</label>
+        <select id="answerAllCheckboxes">
+          <option value="">Skip (don't auto-answer)</option>
+          <option value="true">Check all</option>
+          <option value="false">Uncheck all</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="additionalQuestionsText">Additional Questions <small>(one per line: Key: Value)</small></label>
+        <textarea id="additionalQuestionsText" rows="10" placeholder="First Name: John
+Last Name: Doe
+Python: 3
+React: 4
+Salary expectations: 100000"></textarea>
+      </div>
+    </section>
+
+    <!-- Tab: Advanced -->
+    <section id="tab-advanced" class="tab-content">
+      <fieldset style="border:1px solid #0a66c2; border-radius:8px; padding:10px; margin-bottom:10px;">
+        <legend style="font-weight:600; color:#0a66c2; font-size:13px;">AI Form Filling (Claude)</legend>
+        <div class="field">
+          <label><input type="checkbox" id="useAi"> Enable AI to answer unknown form questions</label>
+        </div>
+        <div class="field">
+          <label for="openaiApiKey">Anthropic API Key</label>
+          <input type="password" id="openaiApiKey" placeholder="sk-ant-...">
+        </div>
+        <div class="field">
+          <label for="openaiModel">Model</label>
+          <select id="openaiModel">
+            <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (cheapest)</option>
+            <option value="claude-sonnet-4-6">Claude Sonnet 4.6</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="aiResumeContext">Your Profile Context <small>(AI uses this to answer questions)</small></label>
+          <textarea id="aiResumeContext" rows="6" placeholder="Paste your profile context here">Name: Amanuel Abu
+Email: amanuelalexabu@gmail.com
+Phone: (669) 292-8473
+Location: San Francisco, CA
+School: San Francisco State University, B.S. Computer Science
+Graduation: May 2026
+LinkedIn: linkedin.com/in/amanuelabu
+GitHub: github.com/amanuel2x
+Skills: Python, TypeScript, JavaScript, React, FastAPI, Node.js, PostgreSQL, Supabase, Git, Docker
+Gender: Male
+Race: Black or African American
+Hispanic/Latino: No
+Disability: No
+Veteran: No
+Sexual Orientation: Heterosexual
+Pronouns: He/Him
+Work Authorization: Yes, authorized in US
+Sponsorship: No, does not need sponsorship
+Years of Experience: 1
+GPA: 3.5
+Available: June 2026
+Willing to relocate: Yes</textarea>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label><input type="checkbox" id="dryRun"> Dry Run (simulate without submitting)</label>
+      </div>
+      <div class="field">
+        <label for="maxApplicationsPerRun">Max Applications Per Run (0 = unlimited)</label>
+        <input type="number" id="maxApplicationsPerRun" value="0" min="0">
+      </div>
+      <div class="field">
+        <label><input type="checkbox" id="followCompanies"> Follow Companies After Apply</label>
+      </div>
+      <div class="field">
+        <label><input type="checkbox" id="saveBeforeApply"> Save Job Before Applying</label>
+      </div>
+      <div class="field">
+        <label><input type="checkbox" id="outputSkippedQuestions" checked> Export Unanswered Questions</label>
+      </div>
+      <div class="field">
+        <label><input type="checkbox" id="listNonEasyApplyJobsUrl"> Log Non-Easy Apply Job URLs</label>
+      </div>
+    </section>
+
+    <!-- Tab: Results -->
+    <section id="tab-results" class="tab-content">
+      <div class="controls">
+        <button id="btnExportCsv" class="btn btn-small">Export CSV</button>
+        <button id="btnExportJson" class="btn btn-small">Export JSON</button>
+        <button id="btnClearResults" class="btn btn-small btn-danger">Clear</button>
+      </div>
+      <div id="resultsLog" class="results-log">
+        <p class="muted">No results yet. Start the bot to see activity here.</p>
+      </div>
+    </section>
+
+    <!-- Save Settings -->
+    <div class="save-bar">
+      <button id="btnSave" class="btn btn-primary">Save Settings</button>
+      <span id="saveStatus" class="save-status"></span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
